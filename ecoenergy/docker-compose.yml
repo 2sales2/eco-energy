@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres:18
+    container_name: ecoenergy-db
+    environment:
+      POSTGRES_USER: ecoenergy
+      POSTGRES_PASSWORD: ecoenergy123
+      POSTGRES_DB: ecoenergy_db
+    ports:
+      - "5432:5432"
+
+
+  app:
+    build: .
+    container_name: ecoenergy-app
+    depends_on:
+      - db
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/ecoenergy_db
+      DB_USER: ecoenergy
+      DB_PASSWORD: ecoenergy123
